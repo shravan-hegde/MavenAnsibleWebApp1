@@ -1,18 +1,18 @@
 ---
 - name: Deploy to Tomcat
   hosts: web
-  become: yes  # Runs tasks with sudo/root privileges
-  
+  become: yes
+
   tasks:
     - name: Copy WAR file to Tomcat
       copy:
         src: "/var/snap/jenkins/5015/workspace/MavenAnsibleWebApp1/target/MavenAnsibleWebApp1.war"
         dest: "/opt/tomcat/webapps/MavenAnsibleWebApp1.war"
-        remote_src: no  # Tells Ansible to look for 'src' on the Jenkins machine
+        remote_src: no
 
     - name: Restart Tomcat
-      shell: | 
-      /opt/tomcat/bin/shutdown.sh || true 
-      sleep 5 
-      /opt/tomcat/bin/startup.sh 
+      shell: |
+        /opt/tomcat/bin/shutdown.sh || true
+        sleep 5
+        /opt/tomcat/bin/startup.sh
 
